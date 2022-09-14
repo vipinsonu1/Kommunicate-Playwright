@@ -1,0 +1,21 @@
+{
+  "name": "kommunicaket-playwrite",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "report": "npx playwright test --reporter=html && npx playwright show-report",
+    "debug": "npx playwright test --debug",
+    "test": "npx playwright test",
+    "backend": "npx playwright test ./backend/",
+    "test-us": "npx playwright test --update-snapshots",
+    "github-action": "npx playwright test --config=github.config.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.25.2",
+    "typescript": "^4.8.3"
+  }
+}
