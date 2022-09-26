@@ -1,4 +1,7 @@
 import { expect, test } from "@playwright/test";
+import fs from 'fs';
+import path from 'path';
+import { parse } from 'csv-parse/sync';
 
 
 const BOTKEY= 'a98985dc-596c-48dd-a98e-00ebca5bf309';
@@ -65,3 +68,28 @@ multiKomposeFunction.forEach(jsondata => {
     
     });
 });
+
+
+//foreach(record in data) 
+const records = parse(fs.readFileSync(path.join(__dirname, '../backend/testData', 'input.csv')), {
+  columns: true,
+  skip_empty_lines: true
+});
+
+for (const record of records ){
+  test(`bot csv ${record.applicationId}`, async ({request,baseURL }) => {
+
+    const _response= await request.post(`${baseURL}/rest/ws/bot/detail`,{
+      data:{
+        "appId": record.applicationId,
+        "botId": record.bot_id,
+      },headers:{
+        "Authorization":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxNzAyMTUsImFwcGxpY2F0aW9uSWQiOiI1MmRiMmVlOTllYzgwZDM1YmY3YmFiYzA4ODNmZmFmOCIsImVtYWlsIjoidmlwaW4rcHJvZGttMDQwODIwMjJAa29tbXVuaWNhdGUuaW8iLCJwYXNzd29yZCI6IiQyYiQxMCRsMUpTLkNtRWRENlVoUTRmSUEvYzR1Tkc3NU9JelUzeFZkd0FpUkJJRlZSMnNvYnl0UHVDYSIsInVzZXJOYW1lIjoidmlwaW4rcHJvZGttMDQwODIwMjJAa29tbXVuaWNhdGUuaW8iLCJ0eXBlIjozLCJnZW5lcmF0ZWRBdCI6MTY2Mjc1MDIxNzM1MywiZW5jcnlwdGVkIjpmYWxzZX0sImlhdCI6MTY2Mjc1MDIxNywiZXhwIjoxNjY1MzQyMjE3fQ.F49JfXtLIbiDJa-k5E7tAfRk7X5d7isH6XblF9RAia0",
+          "Content-Type":"application/json"
+      }
+    })
+    console.log(record.applicationId, record.bot_id);
+
+    console.log(await _response.json())
+  });
+};
