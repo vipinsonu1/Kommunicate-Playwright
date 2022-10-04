@@ -15,12 +15,16 @@ const multiKomposeFunction=[
   {"appId": "52db2ee99ec80d35bf7babc0883ffaf81",
   "botId": "kompss-rqk8k1"}
 ]
+// local variable and configuration
+test.use({
+  baseURL:"https://api.kommunicate.io"
+})
 
 test('should create a bug report', async ({ request,baseURL }) => {
 
   const _response = await request.post(`${baseURL}/rest/ws/bot/${BOTKEY}/function`, {
     data: {
-        "functionKey": "MYfirstfunction34",
+        "functionKey": "MYfirstfunction36",
        "name": "this is my name",
        "body": "this is my body",
     }, headers:{

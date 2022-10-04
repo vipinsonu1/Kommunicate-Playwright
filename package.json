@@ -6,7 +6,10 @@
   "scripts": {
     "report": "npx playwright test --reporter=html && npx playwright show-report",
     "debug": "npx playwright test --debug",
-    "test": "npx playwright test",
+    "env:test": "cross-env test_env:test npx playwright test",
+    "env:prod": "cross-env test_env:prod npx playwright test",
+    "env:stage": " cross-env export test_env=stage &&npm run npx playwright test",
+    
     "backend": "npx playwright test ./backend/",
     "test-us": "npx playwright test --update-snapshots",
     "github-action": "npx playwright test --config=github.config.ts"
@@ -16,7 +19,11 @@
   "license": "ISC",
   "devDependencies": {
     "@playwright/test": "^1.25.2",
+    "cross-env": "^7.0.3",
     "csv-parse": "^5.3.0",
     "typescript": "^4.8.3"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.2"
   }
 }
