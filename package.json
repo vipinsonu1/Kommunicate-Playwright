@@ -9,6 +9,8 @@
     "env:test": "cross-env test_env:test npx playwright test",
     "env:prod": "cross-env test_env:prod npx playwright test",
     "env:stage": " cross-env export test_env=stage &&npm run npx playwright test",
+    "env:testDashboard": " cross-env export test_env=testDashboard &&npm run npx playwright test",
+
     
     "backend": "npx playwright test ./backend/",
     "test-us": "npx playwright test --update-snapshots",
